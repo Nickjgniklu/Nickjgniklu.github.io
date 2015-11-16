@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+		<link rel="stylesheet" type="text/css" href="../style.css">
+        <script type="text/javascript" src="d3/d3.v3.js"></script>
+		
+    </head>
+    <body>
+        <script type="text/javascript">
+		var dataSet =[12,3,4,5,34];
+			
+            d3.select("body").selectAll("div")
+				.data(dataSet)
+				.enter()
+				.append("div")
+				.text(function(d){return d;}).style("height", function(d){
+				var heightb=d*5;
+				return heightb+"px";
+				});
+			
+        </script>
+    </body>
+</html>     
