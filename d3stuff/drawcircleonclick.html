@@ -1,0 +1,40 @@
+<html>
+<head><title>fdraw</title>
+
+
+
+</head>
+<body >
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+var height=500;
+var width=500;
+
+
+
+	var svg = d3.select("body")
+		.append("svg")
+			.attr("width",width)
+			.attr("height",height);
+
+	
+	
+
+	
+	svg.on("click",function(){
+		svg.append("circle")
+		.attr("r",30)
+		.attr("cx",d3.mouse(this)[0])
+		.attr("cy",d3.mouse(this)[1])
+		.attr("fill","rgba(0,0,0,.4)")
+
+	});
+
+
+	
+
+</script>
+	
+
+</body>
+</html>

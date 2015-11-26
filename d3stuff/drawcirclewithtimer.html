@@ -1,0 +1,68 @@
+<meta http-equiv="content-type" content="text/html; charset=UTF8">
+<html>
+<head><title>fdraw</title>
+
+
+<script type="text/javascript" src="d3/d3.v3.js" ></script>
+</head>
+<body >
+
+<script>
+var height=500;
+var width=500;
+var x=0;//mouse pos
+var y=0;//mouse pos
+var circleCount=0;//holds amount of circles
+
+
+	var svg = d3.select("body")
+		.append("svg")
+			.attr("width",width)
+			.attr("height",height);
+
+	
+	//store mouse pos to x and y
+	svg.on("mousemove", function(){
+		var mousePos= d3.mouse(this);
+		 x=mousePos[0];
+		 y=mousePos[1];
+	});
+
+			
+//tim the timer is born!
+		
+var tim=d3.timer(drawstuff);
+
+//drar circles at x and y and change color based on time
+	function drawstuff(elapsed){
+
+		//the mouse Pos dosenot belong to d3 so you must save the position from someting it does belong to
+		//in this case it belongs to svg when the mouse o=move the oistion is updated.
+		//aslo this code will proably crate a huje document it just keeps drawing circles
+		
+		//this should remove the top circle ement after there are 20 ya no more big document!
+		//if(run==false)t.stop();
+		//if(elapsed>5000)t.stop();
+
+		if(circleCount>500){//allow for 500 circles
+			svg.select("circle").remove();//select to circle toward the top of list and delete
+			circleCount--;
+			//update amount of cricles
+		}
+		//create circle change color with respect to time sinnce start
+		svg.append("circle")
+			.attr("r",30)
+			.attr("cx",x)
+			.attr("cy",y)
+			.attr("fill","rgba(0,255,"+d3.round((elapsed/10)%255)+",.9)");
+
+		circleCount++;
+		//update amount of circles
+		
+
+	};
+</script>
+	
+
+</body>
+</html>

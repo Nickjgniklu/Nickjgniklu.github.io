@@ -1,0 +1,47 @@
+<meta http-equiv="content-type" content="text/html; charset=UTF8">
+<html>
+<head>
+	<title>Explore space</title>
+	<script type="text/javascript" src="d3/d3.v3.js"></script>
+</head>
+<body>
+<script>
+//get data about star and other space things and then creat interface to ravel from a point to a point and show travel inbetween as starwars style light speed travel
+	var width=500;
+	var height=500;
+	//crreat array of onject element hav and a radom x and y value
+	var starPoints=[];
+	for(var i=0;i<5000;i++){
+		var x=((Math.floor(Math.random()*1000))%width);
+		var y=((Math.floor(Math.random()*1000))%height);
+		starPoints.push({"x":x,"y":y})
+	}
+	
+
+
+	var svg=d3.select("body").append("svg")
+		.attr("width",width)
+		.attr("height",height);
+	//draw background
+	svg.append("rect")
+		.attr("width",width)
+		.attr("height", height)
+		.attr("fill", "rgba(0,0,0,1)");
+		//draw stars
+	svg.selectAll("circle").data(starPoints).enter()
+		.append("circle")
+		.attr("r",1)
+		.attr("fill","rgba(255,255,255,1")
+		.attr("cx",function(d){return d.x})
+		.attr("cy",function(d){return d.y})
+
+//how to animate for warp.
+//strech stars into lines from center out// maybe i should use small ine instead of circles?
+//I could claculate slope from the origin to the sircle then draw more circle on the lines
+
+
+
+
+</script>
+</body>
+</html>
