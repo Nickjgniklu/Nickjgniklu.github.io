@@ -1,9 +1,10 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF8">
 <html>
-<head><title>fdraw</title>
+<head>
+	<title>fdraw</title>
+	<link rel="stylesheet" type="text/css" href="../style.css">
 
-
-<script type="text/javascript" src="d3/d3.v3.js" ></script>
+	<script type="text/javascript" src="d3/d3.v3.js" ></script>
 </head>
 <body >
 
@@ -44,7 +45,7 @@ var tim=d3.timer(drawstuff);
 		//if(run==false)t.stop();
 		//if(elapsed>5000)t.stop();
 
-		if(circleCount>500){//allow for 500 circles
+		if(circleCount>50){//allow for 500 circles
 			svg.select("circle").remove();//select to circle toward the top of list and delete
 			circleCount--;
 			//update amount of cricles
@@ -54,7 +55,7 @@ var tim=d3.timer(drawstuff);
 			.attr("r",30)
 			.attr("cx",x)
 			.attr("cy",y)
-			.attr("fill","rgba(0,255,"+d3.round((elapsed/10)%255)+",.9)");
+			.attr("fill","rgba(0,255,"+d3.round((elapsed/10)%255)+",.5)");
 
 		circleCount++;
 		//update amount of circles
