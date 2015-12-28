@@ -6,15 +6,31 @@
 
 
 </head>
+<link rel="stylesheet" type="text/css" href="style.css"/>
 <script>
  function BlockMove(event) {
-  // Tell Safari not to move the window.
+  // makes window unmoveable
   event.preventDefault() ;
+ }
+ function addNote(){
+ alert("test")
  }
 </script>
  
-<body ontouchmove="BlockMove(event);"  text-align="center">
+<body ontouchmove="BlockMove(event);"  >
+	<div class="header">
   <h1>Take Notes!</h1>
+  </div>
+  <div class="screen">
+  </br>
+  <p>
+  So i dont have aserver to save notes so these will go way after you make leave the page
+  </p>
+  <input type="text" value="Type notes here"></input></br>
+  <button type="button" onclick="addNote()">Submit</button>
+  
+  </div>
+  
 </body>
 
 </html>
