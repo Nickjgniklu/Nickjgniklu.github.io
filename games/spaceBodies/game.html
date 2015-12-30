@@ -1,0 +1,149 @@
+<DOCTYPE! html>
+<html onkeydown="adjustShip(event)">
+  <head>
+  <title>Space game</title>
+    <script src="raphael.js"></script>
+    <script> 
+	//display size
+	var width = 500;
+	var height= 500;
+	
+ 	var spaceSizeX=2000;
+	var spaceSizeY=2000;
+	var spaceShipX=spaceSizeX/2;
+	var spaceShipY=spaceSizeY/2;
+	var spaceShipVelocityX=0;
+	var spaceShipVelocityY=0;
+	var maxBodySize=50;
+	var bodies=[];//holds all bodies in map
+	var bodiesNumber=100;
+	var objectsOnScreen=[];//holds objects on screen
+	
+	//constructor for bodies objects
+	function body(locx,locy,size,density){
+				this.locx=locx;
+				this.locy=locy;
+				this.size=size;
+				this.density=density;
+			}
+			
+	
+	//create array of planet objects genrate map
+	for(var i=0;i<bodiesNumber;i++){
+		var planet = new body((Math.random()*spaceSizeX)|0,(Math.random()*spaceSizeY)|0,(Math.random()*maxBodySize)|0);
+		bodies.push(planet);
+	}
+	
+	
+	
+	
+	var paper = Raphael(10,10,width,height);
+	
+	var background= paper.rect(0,0,width,height)
+		.attr("fill","000");
+	//draw close objects	
+	
+	setInterval(function(){tick()},16);
+	function tick(){
+	spaceShipX+=spaceShipVelocityX;
+	spaceShipY+=spaceShipVelocityY;
+	update();
+	}
+	function update(){
+	console.log("New Render");
+	//clear old objects
+	clearBodies();
+	//console.log(objectsOnScreen)
+	
+	// look through entire array of objects and draw onscreen onbjects, keep these in an array so i know where the things on screen are
+	drawOnScreenBodies();
+	drawShip();
+	//gravity();
+	
+	
+	}
+	function gravity(){//has issues with obcet on secreen aray is an array of svg not bodie objets
+	//enact gravity on onscreen bodies onspace ship
+	for(var i=(objectsOnScreen.length-1);i>0;i--){
+			var planet= objectsOnScreen[i];
+			var intPlanetX=bodies[i].locx|0;
+			//console.log(intPlanetX)
+			//console.log(spaceShipX)
+			//console.log(intPlanetX+spaceShipX);
+			//console.log(intPlanetX-spaceShipX);
+
+				
+
+			//console.log(distance);
+		
+		}
+	//get distance to each object
+	//get mass or size ,size for know 0f object
+	//calculte force 
+	
+	}
+	function drawShip(){
+	var ship =paper.circle(width/2,height/2,10)
+		.attr("fill", "#f00")
+		.attr("stroke", "#fff");	
+		objectsOnScreen.push(ship);
+
+	}
+	
+	function drawOnScreenBodies(){
+			for(var i=0;i<bodiesNumber;i++){
+			if((bodies[i].locx>(spaceShipX-(width/2)))&&(bodies[i].locx<(spaceShipX+(width/2)))){//rigth now this ig getting a whole quadrant i think
+				if((bodies[i].locy>(spaceShipY-(height/2)))&&(bodies[i].locy<(spaceShipY+(height/2)))){
+				//console.log("xmin");
+				//console.log(spaceShipX-(width/2));
+				
+				//console.log((spaceShipX+(width/2))-bodies[i].locx);
+				//console.log("xmax");
+				//console.log(spaceShipX+(width));
+				var distance=Math.sqrt((((bodies[i].locx-spaceShipX)*(bodies[i].locx-spaceShipX))+((bodies[i].locy-spaceShipY)*(bodies[i].locy-spaceShipY))));
+					var planet=paper.circle(((spaceShipX+(width/2))-bodies[i].locx),((spaceShipY+(width/2))-bodies[i].locy),bodies[i].size).attr("fill","0F0");//problem is here?
+					
+					//this was suppode to just draw but its the best place to get info about on scrren stuff before it svg
+					
+					var slope =(bodies[i].locy-spaceShipY)/(bodies[i].locx-spaceShipX);
+					console.log(distance);
+					objectsOnScreen.push(planet);
+				}
+			}
+		}
+	}	
+	function clearBodies(){
+	if(objectsOnScreen.length>0){
+		for(var i=(objectsOnScreen.length-1);i>=0;i--){
+			var planet= objectsOnScreen[i];
+			planet.remove();
+			objectsOnScreen.pop();
+		
+		}
+		
+	}
+	}
+	function adjustShip(event){
+	 var key = event.which;
+	 if(key==38){//up
+		spaceShipVelocityY+=1;
+	 }
+	 if(key==39){//right
+		spaceShipVelocityX-=1;
+	 }
+	 if(key==40){//down
+		spaceShipVelocityY-=1;
+	 }
+	 if(key==37){//left
+		spaceShipVelocityX+=1;
+
+	 }
+	 //update();
+	}
+	
+
+    </script>
+  </head>
+ 
+</html>
+</DOCTYPE! html>

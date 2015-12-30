@@ -1,0 +1,64 @@
+Idea
+name is celstial exploration 
+A space exploration game\
+2d
+vector graphics
+
+exlpore space and find new planets
+
+space should be randomly genwrated
+but there should be a defualt seed that way lots of people can explore the same place
+
+it shouldnt just be celtials objrcts
+but henrated in systems
+
+maybe instead of randomly genrated i should make maps based on true space
+ how about i sort true data and create maps that are an option mode explore real space since this is a 2d game i will need to increment z and pick a range
+ 
+ the controls for the first space ship should be forward and a boost left/right
+ 
+ i would like randomly gentrated systems
+ 
+ this sytems should contail a ranom anout of stars, planets, dwarf, planets, black holes, super dense dead stars.
+ 
+ i want the game to start of hard the farther you travel the more points you get and you can the make upgrades to you ship that help you go farther
+ things.
+ 
+ order of things
+ 
+ work out game mechanice
+	genration of celstial bodies
+	forces /universe should static at first
+	spaceship control
+point systems
+	upgrades
+Graphics
+	ships
+	upgrades
+	celstialbodies
+	
+initial generation
+
+class celstial objest
+	size;
+	density;
+	location x;
+	location y;
+
+	child classes of star plannet moon etc
+		childs contain info for graphics and names of planet
+		
+class universe is an object any a defined cirle of space array of galaxyies
+class galaxy an object any a defined cirle of space is an array of solar sytems
+class solar systems an object any a defined cirle of space is an array of celstial bodies
+so i should work from thw universe down
+creat a universe fill the universes space with random ly spaced and sized galxies
+fill galaxys with ...
+thus wont work i would have to genrate massive maps
+i want to genrate stuff as i aproach the things
+		
+	
+	
+
+	
+	
