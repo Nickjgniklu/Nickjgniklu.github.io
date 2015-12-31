@@ -12,8 +12,16 @@
 	var spaceSizeY=2000;
 	var spaceShipX=spaceSizeX/2;
 	var spaceShipY=spaceSizeY/2;
+	
+	var shipAngle=0;
+	var shipAccel=.5;//controld how fast user can accelrate there ship
+	var maxShipVelocity=10000;
 	var spaceShipVelocityX=0;
 	var spaceShipVelocityY=0;
+	
+	var gravityEnable = false;//press space to toggle
+	var gravConstant= 10;
+	
 	var maxBodySize=50;
 	var bodies=[];//holds all bodies in map
 	var bodiesNumber=100;
@@ -30,7 +38,7 @@
 	
 	//create array of planet objects genrate map
 	for(var i=0;i<bodiesNumber;i++){
-		var planet = new body((Math.random()*spaceSizeX)|0,(Math.random()*spaceSizeY)|0,(Math.random()*maxBodySize)|0);
+		var planet = new body((Math.random()*spaceSizeX)|0,(Math.random()*spaceSizeY)|0,(Math.random()*maxBodySize)|0);//|0 is quick converts to int
 		bodies.push(planet);
 	}
 	
@@ -45,6 +53,9 @@
 	
 	setInterval(function(){tick()},16);
 	function tick(){
+	// ship velocit should be limited by max planet affected and max user output
+	if(spaceShipVelocityX>maxShipVelocity)spaceShipVelocityX=maxShipVelocity;
+	if(spaceShipVelocityY>maxShipVelocity)spaceShipVelocityY=maxShipVelocity;
 	spaceShipX+=spaceShipVelocityX;
 	spaceShipY+=spaceShipVelocityY;
 	update();
@@ -57,7 +68,7 @@
 	
 	// look through entire array of objects and draw onscreen onbjects, keep these in an array so i know where the things on screen are
 	drawOnScreenBodies();
-	drawShip();
+	drawShip("r"+shipAngle.toString());
 	//gravity();
 	
 	
@@ -82,10 +93,16 @@
 	//calculte force 
 	
 	}
-	function drawShip(){
-	var ship =paper.circle(width/2,height/2,10)
+	function drawShip(rstring){
+	//var ship =paper.circle(width/2,height/2,10)//old space ship design
+	//var ship = paper.path("M 250 250l0 10l10 -10l-10 -10l-10 10l10 10")//will on work for 500x500 screen
+	var ship = paper.path("M 250 250l0 -9.107143l2.678571 -5l2.857143 4.464285l0 10.178572l1.607143 2.5l-3.035714 -1.428572l-0.357143 2.321429l-1.607143 -2.678571l-1.25 2.678571l-0.178571 -2.321429l-1.607143 0.714286 z")
 		.attr("fill", "#f00")
-		.attr("stroke", "#fff");	
+		.attr("stroke", "#fff")
+		.attr("stroke-width", 1);	
+		//ship.transform("r90");
+		
+		ship.transform(rstring);
 		objectsOnScreen.push(ship);
 
 	}
@@ -101,12 +118,29 @@
 				//console.log("xmax");
 				//console.log(spaceShipX+(width));
 				var distance=Math.sqrt((((bodies[i].locx-spaceShipX)*(bodies[i].locx-spaceShipX))+((bodies[i].locy-spaceShipY)*(bodies[i].locy-spaceShipY))));
-					var planet=paper.circle(((spaceShipX+(width/2))-bodies[i].locx),((spaceShipY+(width/2))-bodies[i].locy),bodies[i].size).attr("fill","0F0");//problem is here?
+					var planet=paper.circle(((spaceShipX+(width/2))-bodies[i].locx),((spaceShipY+(height/2))-bodies[i].locy),bodies[i].size).attr("fill","0F0");//problem is here?
 					
 					//this was suppode to just draw but its the best place to get info about on scrren stuff before it svg
+					// in order to enact gravity i have to find angle from ship to planet 
+					//then using simally velocity adujting to the control of the ship based on angle to planet times an inversers distance thing thime a constant
+					// for each componet x and y
 					
-					var slope =(bodies[i].locy-spaceShipY)/(bodies[i].locx-spaceShipX);
-					console.log(distance);
+					var slope =(spaceShipY-bodies[i].locy)/(spaceShipX-bodies[i].locx);
+					var angle = Math.atan(slope);
+					
+					if(gravityEnable){
+					if(((spaceShipY+(height/2))-bodies[i].locy)<(height/2)){
+					spaceShipVelocityY+=gravConstant*Math.cos(angle)*(1/(distance*distance))*bodies[i].size;
+					spaceShipVelocityX+=gravConstant*Math.sin(angle)*(1/(distance*distance))*bodies[i].size;
+					}else{
+					spaceShipVelocityY-=gravConstant*Math.cos(angle)*(1/(distance*distance))*bodies[i].size;
+					spaceShipVelocityX-=gravConstant*Math.sin(angle)*(1/(distance*distance))*bodies[i].size;
+					}//y is messed up cause computer cordinates
+					
+					
+				
+					}
+					console.log(angle);
 					objectsOnScreen.push(planet);
 				}
 			}
@@ -125,20 +159,30 @@
 	}
 	function adjustShip(event){
 	 var key = event.which;
+	 
 	 if(key==38){//up
-		spaceShipVelocityY+=1;
+		spaceShipVelocityX+=-shipAccel*(Math.sin(shipAngle*(3.14/180)));
+		spaceShipVelocityY+=shipAccel*(Math.cos(shipAngle*(3.14/180)));
+		
 	 }
 	 if(key==39){//right
-		spaceShipVelocityX-=1;
+		//spaceShipVelocityX-=1;
+		shipAngle+=10;
 	 }
 	 if(key==40){//down
-		spaceShipVelocityY-=1;
+	
+		spaceShipVelocityX-=-shipAccel*(Math.sin(shipAngle*(3.14/180)));
+		spaceShipVelocityY-=shipAccel*(Math.cos(shipAngle*(3.14/180)));
 	 }
 	 if(key==37){//left
-		spaceShipVelocityX+=1;
-
+		//spaceShipVelocityX+=1;
+		shipAngle-=10;
 	 }
-	 //update();
+	 if(key==32){
+	 if(gravityEnable){
+	 gravityEnable=false;}else {gravityEnable=true;}
+	 }
+	 
 	}
 	
 
