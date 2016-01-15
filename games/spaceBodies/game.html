@@ -8,8 +8,8 @@
 	var width = 500;
 	var height= 500;
 	
- 	var spaceSizeX=2000;
-	var spaceSizeY=2000;
+ 	var spaceSizeX=4000;
+	var spaceSizeY=4000;
 	var spaceShipX=spaceSizeX/2;
 	var spaceShipY=spaceSizeY/2;
 	
@@ -117,17 +117,33 @@
 				//console.log((spaceShipX+(width/2))-bodies[i].locx);
 				//console.log("xmax");
 				//console.log(spaceShipX+(width));
-				var distance=Math.sqrt((((bodies[i].locx-spaceShipX)*(bodies[i].locx-spaceShipX))+((bodies[i].locy-spaceShipY)*(bodies[i].locy-spaceShipY))));
-					var planet=paper.circle(((spaceShipX+(width/2))-bodies[i].locx),((spaceShipY+(height/2))-bodies[i].locy),bodies[i].size).attr("fill","0F0");//problem is here?
-					
+					//var planet=paper.circle(((spaceShipX+(width/2))-bodies[i].locx),((spaceShipY+(height/2))-bodies[i].locy),bodies[i].size)
+						//.attr("fill","0F0");//no glow planets
+						
+						
+					var planet =paper.set();// not working
+						planet.push(
+						paper.circle(((spaceShipX+(width/2))-bodies[i].locx),((spaceShipY+(height/2))-bodies[i].locy),bodies[i].size)
+						.attr("fill","0F0"),
+						
+						planet.glow({color:"050",width:20,opacity:.7})
+						)
 					//this was suppode to just draw but its the best place to get info about on scrren stuff before it svg
 					// in order to enact gravity i have to find angle from ship to planet 
 					//then using simally velocity adujting to the control of the ship based on angle to planet times an inversers distance thing thime a constant
 					// for each componet x and y
-					
+					var distance=Math.sqrt((((bodies[i].locx-spaceShipX)*(bodies[i].locx-spaceShipX))+((bodies[i].locy-spaceShipY)*(bodies[i].locy-spaceShipY))));
+					//draw line from ship to planet
+					//onscreen locations
+					//var planetX=((spaceShipX+(width/2))-bodies[i].locx);
+					//var planetY=((spaceShipY+(height/2))-bodies[i].locy);
+					///var shipX=(width/2);
+					//var shipY=(height/2);
+					//paper.path("M"+shipX.toString()+" "+shipY.toString()+"l"+planetX.toString()+" "+planetY.toString());
 					var slope =(spaceShipY-bodies[i].locy)/(spaceShipX-bodies[i].locx);
 					var angle = Math.atan(slope);
 					
+					//handles gravity
 					if(gravityEnable){
 					if(((spaceShipY+(height/2))-bodies[i].locy)<(height/2)){
 					spaceShipVelocityY+=gravConstant*Math.cos(angle)*(1/(distance*distance))*bodies[i].size;
@@ -136,10 +152,14 @@
 					spaceShipVelocityY-=gravConstant*Math.cos(angle)*(1/(distance*distance))*bodies[i].size;
 					spaceShipVelocityX-=gravConstant*Math.sin(angle)*(1/(distance*distance))*bodies[i].size;
 					}//y is messed up cause computer cordinates
-					
+					}
+					//clolison detection
+					if(distance<=(bodies[i].size+3)){//using circle aproximation for collison detection
+					planet.attr("fill","FFF");//cangle planet color if coloison
+					}
 					
 				
-					}
+					
 					console.log(angle);
 					objectsOnScreen.push(planet);
 				}
