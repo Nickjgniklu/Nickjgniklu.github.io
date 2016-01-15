@@ -5,6 +5,10 @@ body {
 }
 .project {
 	background-color:rgba(200, 200, 200,.80); 
+	align:center;
+	margin:0 auto;
 	text-align: center;
-	
+	width:30%;
+	border: 1px solid black;
+	border-radius: 5px;
 }
