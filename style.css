@@ -1,14 +1,14 @@
 body {
 	background-color:rgb(140, 130, 130); 
 	text-align: center;
-	font:Georgia;
-	padding:3px;
+	font:Courier;
+	
 
 }
 .project {
 	padding:5px;
 	background-color:rgba(200, 200, 200,.80); 
-	margin:0 auto;
+	margin: 2 auto;
 	text-align: center;
 	width:30%;
 	border: 1px solid black;
