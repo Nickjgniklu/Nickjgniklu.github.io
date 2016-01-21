@@ -1,7 +1,9 @@
 <DOCTYPE! html>
 <html onkeydown="adjustShip(event)">
   <head>
+  <link rel="stylesheet" type="text/css" href="../../style.css">
   <title>Space game</title>
+  
     <script src="raphael.js"></script>
     <script> 
 	//display size
@@ -24,7 +26,7 @@
 	
 	var maxBodySize=50;
 	var bodies=[];//holds all bodies in map
-	var bodiesNumber=100;
+	var bodiesNumber=250;
 	var objectsOnScreen=[];//holds objects on screen
 	
 	//constructor for bodies objects
@@ -43,9 +45,9 @@
 	}
 	
 	
+	var cen =document.body.clientWidth/2;
 	
-	
-	var paper = Raphael(10,10,width,height);
+	var paper = Raphael(cen-(width/2),50,width,height);
 	
 	var background= paper.rect(0,0,width,height)
 		.attr("fill","000");
@@ -121,12 +123,12 @@
 						//.attr("fill","0F0");//no glow planets
 						
 						
-					var planet =paper.set();// not working
+					var planet =paper.set();// glownot working
 						planet.push(
 						paper.circle(((spaceShipX+(width/2))-bodies[i].locx),((spaceShipY+(height/2))-bodies[i].locy),bodies[i].size)
-						.attr("fill","0F0"),
+						.attr("fill","33cccc")
 						
-						planet.glow({color:"050",width:20,opacity:.7})
+						//.glow({color:"090",width:10,opacity:.5})
 						)
 					//this was suppode to just draw but its the best place to get info about on scrren stuff before it svg
 					// in order to enact gravity i have to find angle from ship to planet 
@@ -208,6 +210,8 @@
 
     </script>
   </head>
- 
+  <body>
+  <p>Use the arrow keys to move and space to enable gravity<p>
+ </body>
 </html>
 </DOCTYPE! html>
