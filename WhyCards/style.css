@@ -1,0 +1,8 @@
+body {
+    text-align: center;
+    background-image: url("logo.png");
+    background-color: #cccccc;
+    text-emphasis-color: #222;
+    background-size: 100% ;
+    background-repeat: no-repeat;
+}

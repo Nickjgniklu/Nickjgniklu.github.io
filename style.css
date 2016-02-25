@@ -1,29 +1,49 @@
+html{
+		width:100%;
+	height:100%;
+}
 body {
 	background-color:rgb(140, 130, 130); 
 	text-align: center;
 	font:Courier;
+	margin:0px;
+	width:100%;
+	height:100%;
 	
 
 }
 .project {
 	padding:5px;
 	background-color:rgba(200, 200, 200,.80); 
-	margin: 2 auto;
-	text-align: center;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:2px;
+	margin-top:2px;
+	
 	width:90%;
+	
 	border: 1px solid black;
 	border-radius: 5px;
 
 }
- a{
+.header{
+	
+	background-color:rgba(50, 50, 50,.80); 
+	width:100%;
+	padding:1px;
+	
+	
+	}
+ a{ 
+ 
     text-decoration: none;
 	color:black;
 }
 h3{
 	width:60%;
-	margin: 0 auto;
+	margin: auto;
 }
 p{
 	width:50%;
-	margin: 0 auto;
+	margin:auto;
 }
