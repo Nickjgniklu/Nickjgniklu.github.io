@@ -1,0 +1,25 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<html>
+<head>
+  <title>scooter controller</title>
+  <script>
+  document.body.addEventListener('touchmove', function(event) {
+  event.preventDefault();
+
+  var obj = document.getElementById('tracker');
+obj.addEventListener('touchmove', function(event) {
+  // If there's exactly one finger inside this element
+  if (event.targetTouches.length == 1) {
+    var touch = event.targetTouches[0];
+    // Place element where the finger is
+    obj.style.left = touch.pageX + 'px';
+    obj.style.top = touch.pageY + 'px';
+  }
+}, false);
+  }, false);
+   </script>
+</head>
+<body>
+  <p id="tracker">move this</p>
+</body>
+</html>
