@@ -3,31 +3,23 @@
 <head>
   <title>scooter controller</title>
   <script>
+  document.body.addEventListener('touchmove', function(event) {
+  event.preventDefault();
 
-
-  function init() {
-    // Get a reference to our touch-sensitive element
-    var touchzone = document.getElementById("touchzone");
-    // Add an event handler for the touchstart event
-    touchzone.addEventListener("touchstart", touchHandler, false);
+  var obj = document.getElementById('tracker');
+obj.addEventListener('touchmove', function(event) {
+  // If there's exactly one finger inside this element
+  if (event.targetTouches.length == 1) {
+    var touch = event.targetTouches[0];
+    // Place element where the finger is
+    obj.style.left = touch.pageX + 'px';
+    obj.style.top = touch.pageY + 'px';
   }
-  function touchHandler(event) {
-    // Get a reference to our coordinates div
-  //  var coords = document.getElementById("coords");
-    // Write the coordinates of the touch to the div
-    alert("touch at x: " + event.touches[0].pageX + ', y: ' + event.touches[0].pageY)
-    //coords.innerHTML = 'x: ' + event.touches[0].pageX + ', y: ' + event.touches[0].pageY;
-  }
+}, false);
+  }, false);
    </script>
 </head>
-<body id="all">
-  <div id="coords"></div>
-  <div id="touchzone" >
-    ........................................................
-    .................................................
-    ........
-    ................................................
-    .............................................
-  </div>
+<body>
+  <p id="tracker">move this</p>
 </body>
 </html>
