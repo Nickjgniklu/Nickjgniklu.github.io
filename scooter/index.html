@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>scooter</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div class="body" onmousedown="enable()" onmouseup="disable()">
+  <p> hold on blue screen to enable output</p>
+  <p id="onState">off</p>
+</div>
+
+<div class="footer">
+  <p>slide to adjust power delivered to motor</p>
+  <input id="value" type="range" onchange="changeSpeed()">
+  <p id="outputValue">0</p>
+</div>
+
+<script type="text/javascript">
+  function changeSpeed(){
+    //change displayed value
+    var x = document.getElementById("value").value;
+    document.getElementById("outputValue").innerHTML = x;
+    //send speed to node
+
+  }
+  function enable(){
+    document.getElementById("onState").innerHTML = "on";
+
+  }
+  function disable(){
+    document.getElementById("onState").innerHTML = "off";
+  }
+
+</script>
+
+
+</body>
+
+</html>
