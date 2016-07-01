@@ -7,7 +7,7 @@
 <body onload="init()">
 
 <div id ="enableButton" class="body">
-  
+
   <p id="onState">off</p>
 </div>
 
@@ -25,8 +25,8 @@
 <script type="text/javascript">
   function init(){
     document.getElementById("desiredValue").addEventListener("change", changeSpeed);
-    document.getElementById("enableButton").addEventListener("mousedown", enable);
-    document.getElementById("enableButton").addEventListener("mouseup", disable);
+    document.getElementById("enableButton").addEventListener("touchstart", enable);
+    document.getElementById("enableButton").addEventListener("touchend", disable);
   }
 
   function changeSpeed(){
